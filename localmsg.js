@@ -40,7 +40,7 @@ var systemMessages = {
             class:      "systemMsg_ok",
             startDate:  "January 03, 2023 00:02",
             endDate:    "January 03, 2028 00:01"
-        }
+        },
     // Page specific messages
         "My lists": {
             title:      "My Lists",
