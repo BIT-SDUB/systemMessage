@@ -1,0 +1,74 @@
+/**
+ *  @file      systemmessage.css
+ *  @brief     System wide message
+ *  
+ *  @details   Insert a system message in front of content an any given page.
+ *  An enhancement of Joel Hahn's script https://support.sirsidynix.com/dev/contrib/53967
+ *
+ *  @copyright http://www.gnu.org/licenses/lgpl.txt LGPL version 3
+ *  @author    Erik Bachmann <ErBa@bib.sdu.dk>
+ *  @since     2022-08-25T12:25:52 / erba
+ *  @version   2022-09-16T11:13:51
+ */
+
+
+.systemMsg {    /* Default message */
+    width: 100%;
+    background-color: lightblue;
+    font-weight: light;
+    padding:5px; 
+    border:1px solid #3333CC; 
+}
+.systemMsgHide {    /* Hide msg button */
+    float:right;
+    text-align:right;
+    margin-top: -15px;
+}
+
+.systemMsg_title {  /* Legend */
+    font-weight: bold;
+    padding:0px; 
+	padding-left: 5px;
+	padding-right: 5px;
+
+    border:1px solid #3333CC;
+    border:0px solid #3333CC;
+    background-color: rgba(255, 255, 255, 0.5);
+    background-color: hsla(240, 100%, 50%, 0);
+}
+
+/* ERROR */
+.systemMsg_error {
+    background-color: tomato;
+    title: "Error";
+}
+.systemMsg_error_title::before {
+  content: '💥 ';	/* &#x1F4A5 */
+}
+
+/* WARNING */
+.systemMsg_warning {
+    background-color: lightyellow;
+}
+.systemMsg_warning_title::before {
+  content: '⚠ ';	/* &#x26A0; */
+}
+
+/* OK */
+.systemMsg_ok {
+    background-color: MediumSpringGreen;
+    background-color: lightGreen;
+}
+.systemMsg_ok_title::before {
+  content: '🗸 ';	/* &#x1F5F8; */
+}
+
+/* INFO */
+.systemMsg_info {
+    background-color: white;
+    background-color: LightCyan;
+}
+.systemMsg_info_title::before {
+  content: '🛈 ';	/* &#x1F6C8; */
+}
+
