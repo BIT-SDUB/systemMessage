@@ -1,5 +1,3 @@
-# System Message
-
 Meta        | info
 ---|---
 Copyright   | http://www.gnu.org/licenses/lgpl.txt LGPL version 3
