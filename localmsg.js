@@ -104,7 +104,7 @@ var systemMessages = {
         prod: { 
             title:      "Produktion", 
             msg:        "Dette system er i fuld produktion.<br>.<br>Meld venligst alle fejl til <a href='mailto:someone@somewhere.com?subject=Mail%20subject&body=Describe%20errors%20here'>admin</a>",
-            class:      "systemMsg_ok",,
+            class:      "systemMsg_ok",
             startDate:  "January 03, 2023 00:02",
             endDate:    "January 03, 2028 00:01"
         },
