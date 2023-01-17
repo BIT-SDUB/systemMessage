@@ -20,10 +20,11 @@
  *  @copyright http://www.gnu.org/licenses/lgpl.txt LGPL version 3
  *  @author    Erik Bachmann <ErBa@bib.sdu.dk>
  *  @since     2022-08-25T12:25:52 / ErBa
- *  @version   2022-11-15T15:55:51 / ErBa
+ *  @version   2023-01-10T08:34:03 / ErBa
  */
 
 //var systemMessageDebugLevel = true;
+var systemMessageDefaultLanguage = 'en';
 
 /**
  *  @fn        systemMessageDebug
@@ -57,63 +58,62 @@ systemMessageDebug( "debug on" ) ;
 // Examples of messages with translation to other languages
 /*
 var systemMessages = {
-    en: {	// Default language
-		info: {
-			title:	"Info", 	
-			msg:	"This is information",
-			class:	"systemMsg_info"
-		},
-		ok: { 
-			title:	"OK", 	
-			msg:	"This is OK",
-			class:	"systemMsg_ok"
-		},
-		warning: { 
-			title:	"Warning", 	
-			msg:	"This is a warning",
-			class:	"systemMsg_warning"
-		},
-		error: { 
-			title:	"Error", 	
-			msg:	"This is an Error",
-			class:	"systemMsg_error"
-		}
-	},
-    da: {	// Danish
-		alpha: { 
-			title:	"Alfa",
-			msg:	"Dette er en forældet alfa version, som aldrig bør være synlig",
-			class:	"systemMsg_info",
-			// Active Date interval
-			startDate:	"January 01, 2001 00:01",
-			endDate:	"January 01, 2002 00:01"
-		},
-		beta: { 
-			title:	"Beta",
-			msg:	"Dette er en beta",
-			class:	"systemMsg_info"
-		},
-		info: {
-			title:	"Info", 	
-			msg:	"Dette er en information",
-			class:	"systemMsg_info"
-		},
-		ok: { 
-			title:	"OK", 	
-			msg:	"Dette virker OK",
-			class:	"systemMsg_ok"
-		},
-		warning: { 
-			title:	"Advarsel", 	
-			msg:	"Dette er en advarsel",
-			class:	"systemMsg_warning"
-		},
-		error: { 
-			title:	"Fejl", 	
-			msg:	"Dette er en fejl",
-			class:	"systemMsg_error"
-		}
-	}
+    info: {
+        title: {
+            en: "Info",
+            da: "Info",
+        },
+        msg: {
+            en: "System Information. Used for test only.",
+            da: "Information. Bør kun anvendes til test.",
+        },
+        class:      "systemMsg_info",
+        page:       "System Message - test", 
+        startDate:  "January 01, 2001 00:01",
+        endDate:    "January 03, 2030 00:01"
+    },
+    ok: {
+        title: {
+            en: "OK",
+            da: "OK",
+        },
+        msg: {
+            en: "It' just OK. Used for test only.",
+            da: "Det er bare OK. Bør kun anvendes til test.",
+        },
+        class:      "systemMsg_ok",
+        page:       "System Message - test", 
+        startDate:  "January 01, 2001 00:01",
+        endDate:    "January 03, 2030 00:01"
+    },
+    warning: {
+        title: {
+            en: "Warning",
+            da: "Advarsel",
+        },
+        msg: {
+            en: "This is a warning. Used for test only.",
+            da: "Det er en advarsel. Bør kun anvendes til test.",
+        },
+        class:      "systemMsg_warning",
+        page:       "System Message - test", 
+        startDate:  "January 01, 2001 00:01",
+        endDate:    "January 03, 2030 00:01"
+    },
+    error: {
+        title: {
+            en: "Error",
+            da: "Fejl",
+        },
+        msg: {
+            en: "This is an error. Used for test only.",
+            da: "Dette er en fejl. Bør kun anvendes til test.",
+        },
+        class:      "systemMsg_error",
+        page:       "System Message - test", 
+        startDate:  "January 01, 2001 00:01",
+        endDate:    "January 03, 2030 00:01"
+    }
 }
 */
 
@@ -132,68 +132,81 @@ var systemMessages = {
  *  @see       https://support.sirsidynix.com/dev/contrib/53967
  *  @since     2022-08-25T12:22:09 / erba
  */
-function showSystemMessageJS( sysMsg ) {
+//function showSystemMessageJS( sysMsg ) {
+function showSystemMessageJS( sysMsg, key, doclang = 'en' ) {
     
     if (typeof sysMsg === 'undefined') {
         systemMessageDebug('sysMsg is undefined. Please check localmsg.js');
-        //alert('sysMsg is undefined. Please check localmsg.js');
-		return;
+        return;
     } else {
         systemMessageDebug('sysMsg is defined:' + sysMsg['msg'] );
     }
 
-    sysMsg["now"] =  (new Date()).getTime();
+    now =  (new Date()).getTime();
 
-	if ( typeof sysMsg['page'] !== 'undefined' ) { // Check page: If defined but not matching current = skip
-        if ( sysMsg['page']!= document.title ) {
-            systemMessageDebug( "Page title does not match page: [" +  document.title +  "] != [" + sysMsg["page"] +"]" );
+    if ( typeof sysMsg[key]['page'] !== 'undefined' ) { // Check page: If defined but not matching current = skip
+        if ( sysMsg[key]['page'][doclang].toLowerCase() != document.title.toLowerCase() ) {
+            systemMessageDebug( "Page title does not match page: [" +  document.title +  "] != [" + sysMsg[key]["page"][doclang] +"]" );
             return;
         }
     }
     
 	// Test if message should be active
-	if ( typeof sysMsg['startDate'] !== 'undefined' && typeof sysMsg['endDate'] !== 'undefined' ) {
+	if ( typeof sysMsg[key]['startDate'] !== 'undefined' && typeof sysMsg[key]['endDate'] !== 'undefined' ) {
 		// Start and end date defined
 		// Get numeric values of start and end
-		startDate	= ( new Date( sysMsg['startDate'] )).getTime();	// Numeric value of start
-		endDate		= ( new Date( sysMsg['endDate'] )).getTime();	// Numeric value of end
+		startDate	= ( new Date( sysMsg[key]['startDate'] )).getTime();	// Numeric value of start
+		endDate		= ( new Date( sysMsg[key]['endDate'] )).getTime();	// Numeric value of end
 
 		/** /
-		systemMessageDebug('// Start and end date defined: '+ sysMsg['startDate'] + " - " + sysMsg['endDate']);
+		systemMessageDebug('// Start and end date defined: '+ sysMsg[key]['startDate'] + " - " + sysMsg[key]['endDate']);
 		systemMessageDebug('// Start and end date defined: '+ startDate + " - " + endDate );
-		systemMessageDebug('// Testing now: ' + sysMsg['now'] );
-		
-		if ( sysMsg["now"] < startDate ) {
-			systemMessageDebug('// Too soon: ' + sysMsg['now'] );
-		}
-		if ( sysMsg["now"] > endDate ) {
-			systemMessageDebug('// Too late: ' + sysMsg['now'] );
-		}
+		systemMessageDebug('// Testing now: ' + sysMsg[key]['now'] );
 		/* */
 		
-		if ( sysMsg["now"] < startDate  
-        || sysMsg["now"] > endDate ) {	// Out of scope?
-			systemMessageDebug( "Out of scope: ["+sysMsg['title']+"]" + sysMsg['startDate'] + " - " + sysMsg['endDate'] );
+		if ( now < startDate || now > endDate ) {	// Out of scope?
+			systemMessageDebug( "Out of scope: ["+sysMsg[key]['title']+"]" + sysMsg[key]['startDate'] + " - " + sysMsg[key]['endDate'] );
+            if ( now < startDate ) {
+                systemMessageDebug('// Too soon: ' + sysMsg[key]['now'] );
+            }
+            if ( now > endDate ) {
+                systemMessageDebug('// Too late: ' + sysMsg[key]['now'] );
+            }
 			return;
 		}
 	}
+    
+    
+    if ( typeof sysMsg[key]["msg"][doclang] !== 'undefined' ) {
+        var msg = sysMsg[key]["msg"][doclang];
+    } else {
+        var msg = sysMsg[key]["msg"][systemMessageDefaultLanguage];
+    }
+    if ( typeof sysMsg[key]["title"][doclang] !== 'undefined' ) {
+        var title = sysMsg[key]["title"][doclang];
+    } else {
+        var title = sysMsg[key]["title"][systemMessageDefaultLanguage];
+    }
+    
+    
+    
 	if (jQuery('#content').length) { // Test if jQuery is used
-        var wrappedmsg = '<fieldset id="systemMsg" class="systemMsg '+sysMsg['class'] + '">'
-		+		'<legend class="systemMsg_title '+ sysMsg['class'] + ' ' + sysMsg['class'] +'_title" >'
-		+			sysMsg['title'] 
+        var wrappedmsg = '<fieldset id="systemMsg" class="systemMsg '+sysMsg[key]['class'] + '">'
+		+		'<legend class="systemMsg_title '+ sysMsg[key]['class'] + ' ' + sysMsg[key]['class'] +'_title" >'
+		+			title
 		+		'</legend>'
 		+		'<span class="systemMsgHide">'
 		+			'<a onClick="javascript:hideSystemMsg( this.parentNode );">&#x2327;</a>'
 		+		'</span>'
-		+		sysMsg['msg']
+		+		msg
 		+	'</fieldset>';
 
 		jQuery('#content').prepend(wrappedmsg);  // Insert in front of content
-		systemMessageDebug( "System Message inserted: " + sysMsg["msg"] );
+		systemMessageDebug( "System Message inserted: " + msg );
 	} else {    // No jQuery: 
-		systemMessageDebug( "System Message as alert: " + sysMsg["msg"] );
+		systemMessageDebug( "System Message as alert: " + msg );
 		// Don't use modal windows. Might be blocked by browser
-		alert(  sysMsg['title'] + "\n" + sysMsg['msg'] );
+		alert(  sysMsg[key]['title'] + "\n" + msg );
 	}
 }   // showSystemMessageJS()
 

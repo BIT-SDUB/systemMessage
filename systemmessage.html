@@ -31,25 +31,38 @@
     <script src="systemmessage.js">  // Insert into header  </script>
     <link rel="stylesheet" href="systemmessage.css">
 
-    <script async type="text/javascript">var REPO="systemMessage";</script>
-    <script async type="text/javascript" src="/topmenu.js"></script>
-
   </head>
   <body>
+
   <div id='content' class="content">
     <h2>Testing System Message</h2>
     At the top of this page you should see at least 4 messages:
-      <dl>
-        <dt>💥 Error</dt>
-            <dd>This is an error. Used for test only.</dd>
-        <dt>⚠ Warning</dt>
-            <dd>This is a warning. Used for test only."</dd>
-        <dt>🗸 OK</dt>
-            <dd>It' just OK. Used for test only.</dd>
-        <dt>🛈 Info</dt>
-            <dd>System Information. Used for test only.</dd>
-      </dl>
-  </div>
+
+
+<table border=1><tr><td>
+<fieldset id="systemMsg" class="systemMsg systemMsg_info">
+    <span class="systemMsgHide" style="float:right;"><a onclick="javascript:hideSystemMsg( this.parentNode );">⌧</a></span>
+     <legend class="systemMsg_title systemMsg_info systemMsg_info_title">Info</legend><br>
+     System Information. Used for test only.
+ </fieldset>
+ <fieldset id="systemMsg" class="systemMsg systemMsg_ok">
+    <span class="systemMsgHide" style="float:right;"><a onclick="javascript:hideSystemMsg( this.parentNode );">⌧</a></span>
+     <legend class="systemMsg_title systemMsg_ok systemMsg_ok_title">OK</legend><br>
+     It's just OK. Used for test only.
+ </fieldset>
+ <fieldset id="systemMsg" class="systemMsg systemMsg_warning">
+    <span class="systemMsgHide" style="float:right;"><a onclick="javascript:hideSystemMsg( this.parentNode );">⌧</a></span>
+     <legend class="systemMsg_title systemMsg_warning systemMsg_warning_title">Warning</legend><br>
+     This is a warning. Used for test only.
+ </fieldset>
+ <fieldset id="systemMsg" class="systemMsg systemMsg_error">
+    <span class="systemMsgHide" style="float:right;"><a onclick="javascript:hideSystemMsg( this.parentNode );">⌧</a></span>
+     <legend class="systemMsg_title systemMsg_error systemMsg_error_title">Error</legend><br>
+     This is an error. Used for test only.
+ </fieldset>
+</td></tr></table>
+</div>
+
   <!-- -->
 
   </body>
